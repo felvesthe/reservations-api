@@ -1,0 +1,22 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    paths:
+        - app/
+        - bootstrap/
+        - database/
+        - routes/
+        - tests/
+
+    level: 9
+
+    ignoreErrors:
+        -
+            message: '#Instanceof between App\\Models\\User and Illuminate\\Contracts\\Auth\\MustVerifyEmail will always evaluate to false\.#'
+            path: app/Actions/Fortify/UpdateUserProfileInformation.php
+        -
+            message: '#Result of && is always false\.#'
+            path: app/Actions/Fortify/UpdateUserProfileInformation.php
+
