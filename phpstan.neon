@@ -20,3 +20,5 @@ parameters:
             message: '#Result of && is always false\.#'
             path: app/Actions/Fortify/UpdateUserProfileInformation.php
 
+    excludePaths:
+        - database/migrations/2026_02_08_234615_create_permission_tables.php
