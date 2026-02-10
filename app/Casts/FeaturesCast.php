@@ -51,7 +51,7 @@ final class FeaturesCast implements CastsAttributes
     public function set(Model $model, string $key, mixed $value, array $attributes): string
     {
         if (! $value instanceof FeatureData) {
-            throw new InvalidArgumentException('The given value is not a FeatureData instance.');
+            throw new InvalidArgumentException(__('exceptions.reservable.features.not_instance_of'));
         }
 
         return $value->toJson();

@@ -18,7 +18,7 @@ final readonly class FeatureStrategyFactory
             ReservableType::CONFERENCE_ROOM->value => new FeatureStrategyContext(new ConferenceRoomFeatureStrategy()),
             ReservableType::DESK->value => new FeatureStrategyContext(new DeskFeatureStrategy()),
             ReservableType::PARKING->value => new FeatureStrategyContext(new ParkingFeatureStrategy()),
-            default => throw new InvalidArgumentException('Provided type does not exist.'),
+            default => throw new InvalidArgumentException(__('exceptions.reservable.type.not_exists')),
         };
     }
 }
