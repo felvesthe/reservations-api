@@ -1,0 +1,24 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Strategies;
+
+use App\Enums\ReservableType;
+use App\Strategies\Feature\ConferenceRoomFeatureStrategy;
+use App\Strategies\Feature\DeskFeatureStrategy;
+use App\Strategies\Feature\ParkingFeatureStrategy;
+use InvalidArgumentException;
+
+final readonly class FeatureStrategyFactory
+{
+    public static function create(string $reservableType): FeatureStrategyContext
+    {
+        return match ($reservableType) {
+            ReservableType::CONFERENCE_ROOM->value => new FeatureStrategyContext(new ConferenceRoomFeatureStrategy()),
+            ReservableType::DESK->value => new FeatureStrategyContext(new DeskFeatureStrategy()),
+            ReservableType::PARKING->value => new FeatureStrategyContext(new ParkingFeatureStrategy()),
+            default => throw new InvalidArgumentException('Provided type does not exist.'),
+        };
+    }
+}
