@@ -10,6 +10,7 @@ use Database\Factories\ReservableFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property-read string $name,
@@ -27,6 +28,15 @@ final class Reservable extends Model
         'type',
         'features',
     ];
+
+    /** @return HasMany<Booking, $this> */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(
+            related: Booking::class,
+            foreignKey: 'reservable_id',
+        );
+    }
 
     public function casts(): array
     {

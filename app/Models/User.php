@@ -9,6 +9,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,6 +42,15 @@ final class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /** @return HasMany<Booking, $this> */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(
+            related: Booking::class,
+            foreignKey: 'user_id',
+        );
+    }
 
     /** @return array<string, string> */
     protected function casts(): array
