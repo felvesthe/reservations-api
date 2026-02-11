@@ -21,6 +21,7 @@ final class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             ReservableSeeder::class,
+            BookingSeeder::class,
         ]);
 
         User::factory(10)->create();
