@@ -16,31 +16,43 @@ final class ReservableFactory extends Factory
     /** @var class-string<Reservable> */
     protected $model = Reservable::class;
 
-    /** @var array<int, array<string, bool|int|string>> */
-    private array $features = [
+    /** @var array<int, array<string, ReservableType|array<string, bool|int|string>>> */
+    private array $reservables = [
         [
-            'board' => false,
-            'projector' => true,
-            'seats' => 4,
+            'type' => ReservableType::CONFERENCE_ROOM,
+            'features' => [
+                'board' => false,
+                'projector' => true,
+                'seats' => 4,
+            ],
         ],
         [
-            'monitor_size' => '27"',
-            'height_adjustment' => true,
+            'type' => ReservableType::DESK,
+            'features' => [
+                'monitor_size' => '27"',
+                'height_adjustment' => true,
+            ],
         ],
         [
-            'sector' => 'A',
-            'spaces' => 24,
-            'ev_charger' => true,
+            'type' => ReservableType::PARKING,
+            'features' => [
+                'sector' => 'A',
+                'spaces' => 24,
+                'ev_charger' => true,
+            ],
         ],
     ];
 
     /** @return array<string, mixed> */
     public function definition(): array
     {
+        /** @var array<string, ReservableType|array<string, bool|int|string>> $reservable */
+        $reservable = $this->faker->randomElement($this->reservables);
+
         return [
             'name' => $this->faker->word(),
-            'type' => $this->faker->randomElement(ReservableType::cases()),
-            'features' => json_encode($this->faker->randomElement($this->features)),
+            'type' => $reservable['type'],
+            'features' => json_encode($reservable['features']),
         ];
     }
 }
