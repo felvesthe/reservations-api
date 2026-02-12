@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property-read string $name,
  * @property-read ReservableType $type,
- * @property-read array<string, bool|int|string> $features
+ * @property-read array<string, mixed> $features
  */
 final class Reservable extends Model
 {
