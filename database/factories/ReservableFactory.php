@@ -16,7 +16,7 @@ final class ReservableFactory extends Factory
     /** @var class-string<Reservable> */
     protected $model = Reservable::class;
 
-    /** @var array<int, array<string, ReservableType|array<string, bool|int|string>>> */
+    /** @var array<int, array<string, ReservableType|array<string, mixed>>> */
     private array $reservables = [
         [
             'type' => ReservableType::CONFERENCE_ROOM,
@@ -46,7 +46,7 @@ final class ReservableFactory extends Factory
     /** @return array<string, mixed> */
     public function definition(): array
     {
-        /** @var array<string, ReservableType|array<string, bool|int|string>> $reservable */
+        /** @var array<string, ReservableType|array<string, mixed>> $reservable */
         $reservable = $this->faker->randomElement($this->reservables);
 
         return [
