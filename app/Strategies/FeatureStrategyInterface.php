@@ -8,6 +8,6 @@ use App\Data\FeatureData;
 
 interface FeatureStrategyInterface
 {
-    /** @param array<string, bool|int|string> $data */
+    /** @param array<string, mixed> $data */
     public function make(array $data): FeatureData;
 }

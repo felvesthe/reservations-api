@@ -8,7 +8,25 @@ return [
             'not_exists' => 'Wprowadzony typ nie istnieje.',
         ],
         'features' => [
-            'not_instance_of' => 'Wprowadzona wartość nie jest instancją FeatureData.',
+            'not_supported' => 'Wprowadzona wartość nie jest obsługiwana.',
+        ],
+    ],
+    'conference_room' => [
+        'features' => [
+            'seats_required' => 'Pole ilość siedzeń jest wymagane.',
+            'seats_positive_number' => 'Ilość siedzeń musi być liczbą dodatnią.',
+        ],
+    ],
+    'desk' => [
+        'features' => [
+            'monitor_size_required' => 'Pole przekątna monitora jest wymagane.',
+        ],
+    ],
+    'parking' => [
+        'features' => [
+            'sector_required' => 'Pole sektor jest wymagane.',
+            'spaces_required' => 'Pole ilości miejsc jest wymagane.',
+            'spaces_positive_number' => 'Ilość miejsc parkingowych musi być liczbą dodatnią.',
         ],
     ],
 ];

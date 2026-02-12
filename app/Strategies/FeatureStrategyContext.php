@@ -12,7 +12,7 @@ final readonly class FeatureStrategyContext
         private FeatureStrategyInterface $strategy,
     ) {}
 
-    /** @param array<string, bool|int|string> $data */
+    /** @param array<string, mixed> $data */
     public function make(array $data): FeatureData
     {
         return $this->strategy->make($data);

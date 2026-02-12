@@ -8,7 +8,25 @@ return [
             'not_exists' => 'Provided type does not exist.',
         ],
         'features' => [
-            'not_instance_of' => 'The given value is not a FeatureData instance.',
+            'not_supported' => 'The given value is not supported.',
+        ],
+    ],
+    'conference_room' => [
+        'features' => [
+            'seats_required' => 'Seats field is required.',
+            'seats_positive_number' => 'Number of seats must be positive.',
+        ],
+    ],
+    'desk' => [
+        'features' => [
+            'monitor_size_required' => 'Monitor size field is required.',
+        ],
+    ],
+    'parking' => [
+        'features' => [
+            'sector_required' => 'Sector field is required.',
+            'spaces_required' => 'Spaces field is required.',
+            'spaces_positive_number' => 'Number of parking spaces must be positive.',
         ],
     ],
 ];
