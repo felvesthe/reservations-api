@@ -20,6 +20,7 @@ return [
     'desk' => [
         'features' => [
             'monitor_size_required' => 'Pole przekątna monitora jest wymagane.',
+            'monitor_size_greater_than_zero' => 'Wartość przekątnej monitora musi wynosić więcej niż zero.',
         ],
     ],
     'parking' => [

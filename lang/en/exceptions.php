@@ -20,6 +20,7 @@ return [
     'desk' => [
         'features' => [
             'monitor_size_required' => 'Monitor size field is required.',
+            'monitor_size_greater_than_zero' => 'Monitor size value must be greater than zero.',
         ],
     ],
     'parking' => [

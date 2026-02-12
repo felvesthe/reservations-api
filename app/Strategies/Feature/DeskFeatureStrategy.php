@@ -12,7 +12,7 @@ use InvalidArgumentException;
 
 /**
  * @phpstan-type DeskDataArray array{
- *     monitor_size: ?string,
+ *     monitor_size: ?float,
  *     height_adjustment: ?bool
  * }
  */
@@ -40,12 +40,16 @@ final readonly class DeskFeatureStrategy implements FeatureStrategyInterface
     }
 
     /** @param DeskDataArray $data */
-    private function monitorSize(array $data): string
+    private function monitorSize(array $data): float
     {
         $monitorSize = $data['monitor_size'] ?? $this->currentFeatures?->monitorSize;
 
-        if (! $monitorSize) {
+        if (null === $monitorSize) {
             throw new InvalidArgumentException(__('exceptions.desk.features.monitor_size_required'));
+        }
+
+        if ($monitorSize <= 0.0) {
+            throw new InvalidArgumentException(__('exceptions.desk.features.monitor_size_greater_than_zero'));
         }
 
         return $monitorSize;

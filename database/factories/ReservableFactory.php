@@ -29,7 +29,7 @@ final class ReservableFactory extends Factory
         [
             'type' => ReservableType::DESK,
             'features' => [
-                'monitor_size' => '27"',
+                'monitor_size' => 23.5,
                 'height_adjustment' => true,
             ],
         ],

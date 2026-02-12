@@ -10,7 +10,7 @@ use JsonException;
 final readonly class DeskData implements FeatureData
 {
     public function __construct(
-        public string $monitorSize,
+        public float $monitorSize,
         public bool $heightAdjustment,
     ) {}
 
