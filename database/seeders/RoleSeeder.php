@@ -22,7 +22,7 @@ final class RoleSeeder extends Seeder
             ->givePermissionTo(PermissionType::USER_ACCESS->value)
             ->givePermissionTo(PermissionType::BOOKING_ACCESS->value)
             ->givePermissionTo(PermissionType::BOOKING_MANAGE->value)
-            ->givePermissionTo(PermissionType::RESOURCE_ACCESS->value);
+            ->givePermissionTo(PermissionType::RESERVABLE_ACCESS->value);
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
     }
