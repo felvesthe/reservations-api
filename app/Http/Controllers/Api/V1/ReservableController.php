@@ -19,6 +19,8 @@ final class ReservableController extends Controller
 {
     public function index(): Response
     {
+        $this->authorize('view-any', Reservable::class);
+
         return ReservableResource::collection(
             resource: Reservable::simplePaginate(
                 perPage: config()->integer('pagination.per_page'),
@@ -39,6 +41,8 @@ final class ReservableController extends Controller
 
     public function show(Reservable $reservable): Response
     {
+        $this->authorize('view', $reservable);
+
         return new JsonResponse(
             data: ReservableResource::make($reservable),
             status: Response::HTTP_OK,
@@ -56,6 +60,8 @@ final class ReservableController extends Controller
 
     public function destroy(Reservable $reservable, DestroyReservableAction $destroyReservableAction): Response
     {
+        $this->authorize('delete', $reservable);
+
         $destroyReservableAction->execute($reservable);
 
         return new JsonResponse(
