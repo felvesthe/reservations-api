@@ -31,6 +31,8 @@ final class LoginController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
+        $user->tokens()->where('name', 'api_token')->delete();
+
         $token = $user->createToken(
             name: 'api_token',
         );
