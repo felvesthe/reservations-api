@@ -34,9 +34,7 @@ final class ReservableController extends Controller
     {
         $createReservableAction->execute($request);
 
-        return new JsonResponse(
-            status: Response::HTTP_NO_CONTENT,
-        );
+        return response()->noContent();
     }
 
     public function show(Reservable $reservable): Response
@@ -53,9 +51,7 @@ final class ReservableController extends Controller
     {
         $updateReservableAction->execute($request, $reservable);
 
-        return new JsonResponse(
-            status: Response::HTTP_NO_CONTENT,
-        );
+        return response()->noContent();
     }
 
     public function destroy(Reservable $reservable, DestroyReservableAction $destroyReservableAction): Response
@@ -64,8 +60,6 @@ final class ReservableController extends Controller
 
         $destroyReservableAction->execute($reservable);
 
-        return new JsonResponse(
-            status: Response::HTTP_NO_CONTENT,
-        );
+        return response()->noContent();
     }
 }
