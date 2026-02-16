@@ -15,6 +15,12 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->as('v1:')->group(function ():
         ->group(
             base_path('routes/api/v1/reservables.php'),
         );
+
+    Route::prefix('users')
+        ->as('users:')
+        ->group(
+            base_path('routes/api/v1/users.php'),
+        );
 });
 
 if (App::environment('local')) {
