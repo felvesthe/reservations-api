@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Enums\Auth\RoleType;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -17,5 +18,10 @@ final class UserSeeder extends Seeder
             'email' => 'test@localhost',
             'password' => 'password',
         ]);
+
+        User::factory()->create([
+            'email' => 'manager@localhost',
+            'password' => 'password',
+        ])->assignRole(RoleType::MANAGER->value);
     }
 }
