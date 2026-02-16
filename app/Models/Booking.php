@@ -44,8 +44,6 @@ final class Booking extends Model
     protected function casts(): array
     {
         return [
-            'user_id' => 'integer',
-            'reservable_id' => 'integer',
             'start_at' => 'datetime',
             'end_at' => 'datetime',
         ];
