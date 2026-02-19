@@ -7,7 +7,8 @@ namespace App\Enums\Auth;
 enum PermissionType: string
 {
     case BOOKING_ACCESS = 'booking_access';
-    case BOOKING_MANAGE = 'booking_manage';
+    case BOOKING_MANAGE_OWN = 'booking_manage_own';
+    case BOOKING_MANAGE_ALL = 'booking_manage_all';
 
     case RESERVABLE_ACCESS = 'reservable_access';
     case RESERVABLE_MANAGE = 'reservable_manage';

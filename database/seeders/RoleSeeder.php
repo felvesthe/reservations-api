@@ -21,7 +21,7 @@ final class RoleSeeder extends Seeder
         Role::create(['name' => RoleType::EMPLOYEE->value])
             ->givePermissionTo(PermissionType::USER_ACCESS->value)
             ->givePermissionTo(PermissionType::BOOKING_ACCESS->value)
-            ->givePermissionTo(PermissionType::BOOKING_MANAGE->value)
+            ->givePermissionTo(PermissionType::BOOKING_MANAGE_OWN->value)
             ->givePermissionTo(PermissionType::RESERVABLE_ACCESS->value);
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
