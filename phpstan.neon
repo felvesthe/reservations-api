@@ -22,3 +22,4 @@ parameters:
 
     excludePaths:
         - database/migrations/2026_02_08_234615_create_permission_tables.php
+        - database/migrations/2026_02_19_143255_create_telescope_entries_table.php
