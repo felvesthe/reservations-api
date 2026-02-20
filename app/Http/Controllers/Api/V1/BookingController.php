@@ -14,6 +14,7 @@ use App\Models\Booking;
 use App\Pipelines\Filters\Bookings\DateFilter;
 use App\Pipelines\Filters\Bookings\ReservableFilter;
 use App\Pipelines\Filters\Bookings\UserFilter;
+use App\Pipelines\SortBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Pipeline;
@@ -25,15 +26,16 @@ final class BookingController extends Controller
     {
         $this->authorize('view-any', Booking::class);
 
-        $filters = [
+        $pipes = [
             new UserFilter(),
             new ReservableFilter(),
             new DateFilter(),
+            new SortBy(),
         ];
 
         /** @var Builder<Booking> $query */
         $query = Pipeline::send(Booking::query())
-            ->through($filters)
+            ->through($pipes)
             ->thenReturn();
 
         $bookings = $query
