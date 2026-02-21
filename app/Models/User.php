@@ -34,7 +34,7 @@ final class User extends Authenticatable
         'username',
         'email',
         'password',
-        'push_notifications',
+        'notification_channels',
     ];
 
     /** @var list<string> */
@@ -58,7 +58,7 @@ final class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'push_notifications' => 'array',
+            'notification_channels' => 'array',
         ];
     }
 }

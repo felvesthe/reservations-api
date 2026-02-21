@@ -36,7 +36,7 @@ final class UpdateUserProfileInformation implements UpdatesUserProfileInformatio
                 'max:255',
                 Rule::unique('users')->ignore($user->id),
             ],
-            'push_notifications' => ['required', 'array'],
+            'notification_channels' => ['required', 'array'],
         ])->validateWithBag('updateProfileInformation');
 
         if ($input['email'] !== $user->email
@@ -48,7 +48,7 @@ final class UpdateUserProfileInformation implements UpdatesUserProfileInformatio
                 'last_name' => $input['last_name'],
                 'username' => $input['username'],
                 'email' => $input['email'],
-                'push_notifications' => $input['push_notifications'],
+                'notification_channels' => $input['notification_channels'],
             ])->save();
         }
     }
@@ -66,7 +66,7 @@ final class UpdateUserProfileInformation implements UpdatesUserProfileInformatio
             'username' => $input['username'],
             'email' => $input['email'],
             'email_verified_at' => null,
-            'push_notifications' => $input['push_notifications'],
+            'notification_channels' => $input['notification_channels'],
         ])->save();
 
         $user->sendEmailVerificationNotification();

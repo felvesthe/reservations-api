@@ -22,7 +22,7 @@ return new class () extends Migration {
             $table->string('password');
             $table->rememberToken();
 
-            $table->json('push_notifications');
+            $table->json('notification_channels');
 
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();

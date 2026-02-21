@@ -30,7 +30,7 @@ final class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => UserFactory::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'push_notifications' => [
+            'notification_channels' => [
                 'email' => $this->faker->boolean(),
                 'telegram' => $this->faker->boolean(),
             ],

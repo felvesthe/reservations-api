@@ -22,7 +22,7 @@ final class UserResource extends JsonResource
             'last_name' => $this->resource->last_name,
             'username' => $this->resource->username,
             'email' => $this->resource->email,
-            'push_notifications' => $this->resource->push_notifications,
+            'notification_channels' => $this->resource->notification_channels,
         ];
     }
 }

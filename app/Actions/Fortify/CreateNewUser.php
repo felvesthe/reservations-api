@@ -39,7 +39,7 @@ final class CreateNewUser implements CreatesNewUsers
                 Rule::unique(User::class),
             ],
             'password' => $this->passwordRules(),
-            'push_notifications' => ['required', 'array'],
+            'notification_channels' => ['required', 'array'],
         ])->validate();
 
         return User::create([
@@ -48,7 +48,7 @@ final class CreateNewUser implements CreatesNewUsers
             'username' => $input['username'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'push_notifications' => $input['push_notifications'],
+            'notification_channels' => $input['notification_channels'],
         ]);
     }
 }
