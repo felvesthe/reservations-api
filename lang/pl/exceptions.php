@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
     'booking' => [
         'minimal_period' => 'Minimalny czas rezerwacji wynosi :period minut(y).',
+        'max_bookings' => 'Jeden użytkownik może mieć maksymalnie :limit aktywne rezerwacje jednego typu zasobu w tym samym momencie.',
     ],
     'reservable' => [
         'type' => [
