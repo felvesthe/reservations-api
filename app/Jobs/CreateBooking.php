@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
-use App\Http\Payloads\V1\CreateBookingPayload;
 use App\Models\Booking;
 use App\Repositories\BookingRepositoryInterface;
+use Carbon\CarbonInterface;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Validation\ValidationException;
@@ -15,18 +15,24 @@ final class CreateBooking implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @param  array{
+     *     user_id: string,
+     *     reservable_id: string,
+     *     start_at: CarbonInterface,
+     *     end_at: CarbonInterface,
+     * }  $data
+     */
     public function __construct(
-        private readonly CreateBookingPayload $payload,
+        private readonly array $data,
     ) {}
 
     public function handle(BookingRepositoryInterface $bookingRepository): void
     {
-        $data = $this->payload->toArray();
-
         if (! $bookingRepository->isReservableAvailableInPeriod(
-            reservableId: $data['reservable_id'],
-            startAt: $data['start_at'],
-            endAt: $data['end_at'],
+            reservableId: $this->data['reservable_id'],
+            startAt: $this->data['start_at'],
+            endAt: $this->data['end_at'],
         )) {
             $this->fail(
                 exception: ValidationException::withMessages([
@@ -36,10 +42,10 @@ final class CreateBooking implements ShouldQueue
         }
 
         Booking::create([
-            'user_id' => $data['user_id'],
-            'reservable_id' => $data['reservable_id'],
-            'start_at' => $data['start_at'],
-            'end_at' => $data['end_at'],
+            'user_id' => $this->data['user_id'],
+            'reservable_id' => $this->data['reservable_id'],
+            'start_at' => $this->data['start_at'],
+            'end_at' => $this->data['end_at'],
         ]);
     }
 }

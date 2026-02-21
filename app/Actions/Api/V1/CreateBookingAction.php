@@ -30,6 +30,6 @@ final readonly class CreateBookingAction
             throw ValidationException::withMessages(['period' => __('responses.v1.bookings.store.failure_invalid_period')]);
         }
 
-        CreateBooking::dispatch($payload);
+        CreateBooking::dispatch($data);
     }
 }
