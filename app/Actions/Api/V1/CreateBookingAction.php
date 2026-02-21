@@ -31,7 +31,7 @@ final readonly class CreateBookingAction
         }
 
         if (! $this->bookingRepository->isReservableAvailableInPeriod(
-            reservableId: $request->string('reservable_id')->toString(),
+            reservableId: $data['reservable_id'],
             startAt: $startAt,
             endAt: $endAt,
         )
