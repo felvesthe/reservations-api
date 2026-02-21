@@ -21,10 +21,19 @@ final readonly class CreateBookingAction
         $payload = new CreateBookingPayload($request);
         $data = $payload->toArray();
 
+        $startAt = $data['start_at'];
+        $endAt = $data['end_at'];
+
+        $minimalPeriod = config()->integer('booking.minimal_period');
+
+        if ($startAt->diffInMinutes($endAt) < $minimalPeriod) {
+            throw ValidationException::withMessages(['period' => __('exceptions.booking.minimal_period', ['period' => $minimalPeriod])]);
+        }
+
         if (! $this->bookingRepository->isReservableAvailableInPeriod(
             reservableId: $request->string('reservable_id')->toString(),
-            startAt: $data['start_at'],
-            endAt: $data['end_at'],
+            startAt: $startAt,
+            endAt: $endAt,
         )
         ) {
             throw ValidationException::withMessages(['period' => __('responses.v1.bookings.store.failure_invalid_period')]);

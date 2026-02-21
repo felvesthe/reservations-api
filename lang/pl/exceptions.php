@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 return [
+    'booking' => [
+        'minimal_period' => 'Minimalny czas rezerwacji wynosi :period minut(y).',
+    ],
     'reservable' => [
         'type' => [
             'not_exists' => 'Wprowadzony typ nie istnieje.',
