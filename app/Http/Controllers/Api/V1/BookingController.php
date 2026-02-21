@@ -11,8 +11,8 @@ use App\Http\Requests\V1\Bookings\StoreBookingRequest;
 use App\Http\Resources\V1\BookingResource;
 use App\Http\Resources\V1\DetailedBookingResource;
 use App\Models\Booking;
-use App\Pipelines\Filters\Bookings\DateFilter;
 use App\Pipelines\Filters\Bookings\ReservableFilter;
+use App\Pipelines\Filters\Bookings\StartAtDateFilter;
 use App\Pipelines\Filters\Bookings\UserFilter;
 use App\Pipelines\SortBy;
 use Illuminate\Database\Eloquent\Builder;
@@ -29,7 +29,7 @@ final class BookingController extends Controller
         $pipes = [
             new UserFilter(),
             new ReservableFilter(),
-            new DateFilter(),
+            new StartAtDateFilter(),
             new SortBy(),
         ];
 
