@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Pipelines\Filters\Bookings;
+namespace App\Pipelines\Filters;
 
-use App\Models\Booking;
-use App\Pipelines\Filters\Filter;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 final class ReservableFilter extends Filter
 {
     /**
-     * @param  Builder<Booking>  $query
+     * @param  Builder<Model>  $query
      * @param  Closure $next
-     * @return Builder<Booking>
+     * @return Builder<Model>
      */
     public function __invoke(Builder $query, Closure $next): Builder
     {
