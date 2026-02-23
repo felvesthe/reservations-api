@@ -63,6 +63,7 @@ final class BookingRepository implements BookingRepositoryInterface
     {
         return $query
             ->where('user_id', $userId)
+            ->whereDate('end_at', '>=', now())
             ->whereHas('reservable', function (Builder $query) use ($reservableType): void {
                 $query->where('type', $reservableType);
             });
