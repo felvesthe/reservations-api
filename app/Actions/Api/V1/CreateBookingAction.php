@@ -47,6 +47,15 @@ final readonly class CreateBookingAction
             throw ValidationException::withMessages(['period' => __('responses.v1.bookings.store.failure_invalid_period')]);
         }
 
+        if ($this->bookingRepository->hasAnyBookingsOfTypeInPeriod(
+            userId: $data['user_id'],
+            reservableType: $reservable->type,
+            startAt: $startAt,
+            endAt: $endAt,
+        )) {
+            throw ValidationException::withMessages(['reservable' => __('exceptions.booking.one_resource_at_time')]);
+        }
+
         CreateBooking::dispatch($data);
     }
 }

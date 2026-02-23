@@ -6,6 +6,7 @@ return [
     'booking' => [
         'minimal_period' => 'Minimalny czas rezerwacji wynosi :period minut(y).',
         'max_bookings' => 'Jeden użytkownik może mieć maksymalnie :limit aktywne rezerwacje jednego typu zasobu w tym samym momencie.',
+        'one_resource_at_time' => 'Możesz zarezerwować tylko jeden zasób tego samego typu w tym samym czasie.',
     ],
     'reservable' => [
         'type' => [

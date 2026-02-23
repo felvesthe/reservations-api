@@ -6,6 +6,7 @@ return [
     'booking' => [
         'minimal_period' => 'Minimal period of reservation is :period minute(s).',
         'max_bookings' => 'One user can have max. :limit active reservations of one type of resource at once.',
+        'one_resource_at_time' => 'You can reserve only one resource of the same type at the same time.',
     ],
     'reservable' => [
         'type' => [
