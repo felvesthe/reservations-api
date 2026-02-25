@@ -12,7 +12,12 @@ use App\Http\Requests\V1\Reservables\StoreReservableRequest;
 use App\Http\Requests\V1\Reservables\UpdateReservableRequest;
 use App\Http\Resources\V1\ReservableResource;
 use App\Models\Reservable;
+use App\Pipelines\Filters\Reservables\NameFilter;
+use App\Pipelines\Filters\Reservables\TypeFilter;
+use App\Pipelines\SortBy;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Pipeline;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ReservableController extends Controller
@@ -21,10 +26,23 @@ final class ReservableController extends Controller
     {
         $this->authorize('view-any', Reservable::class);
 
+        $pipes = [
+            new NameFilter(),
+            new TypeFilter(),
+            new SortBy(),
+        ];
+
+        /** @var Builder<Reservable> $query */
+        $query = Pipeline::send(Reservable::query())
+            ->through($pipes)
+            ->thenReturn();
+
+        $reservables = $query->simplePaginate(
+            perPage: config()->integer('pagination.per_page'),
+        );
+
         return ReservableResource::collection(
-            resource: Reservable::simplePaginate(
-                perPage: config()->integer('pagination.per_page'),
-            ),
+            resource: $reservables,
         )->response()->setStatusCode(
             code: Response::HTTP_OK,
         );
