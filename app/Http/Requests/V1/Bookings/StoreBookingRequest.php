@@ -23,7 +23,6 @@ final class StoreBookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required'],
             'reservable_id' => ['required'],
             'start_at' => ['required', 'date', 'date_format:Y-m-d H:i', 'after_or_equal:now'],
             'end_at' => ['required', 'date', 'date_format:Y-m-d H:i', 'after:start_at'],

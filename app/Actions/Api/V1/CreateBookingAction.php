@@ -8,6 +8,7 @@ use App\Http\Payloads\V1\CreateBookingPayload;
 use App\Http\Requests\V1\Bookings\StoreBookingRequest;
 use App\Jobs\CreateBooking;
 use App\Models\Reservable;
+use App\Models\User;
 use App\Repositories\BookingRepositoryInterface;
 use Illuminate\Validation\ValidationException;
 
@@ -19,8 +20,16 @@ final readonly class CreateBookingAction
 
     public function execute(StoreBookingRequest $request): void
     {
+        /** @var User $user */
+        $user = $request->user();
+
         $payload = new CreateBookingPayload($request);
-        $data = $payload->toArray();
+        $data = array_merge(
+            [
+                'user' => $user,
+            ],
+            $payload->toArray(),
+        );
 
         $reservable = Reservable::findOrFail($data['reservable_id']);
 
@@ -30,7 +39,7 @@ final readonly class CreateBookingAction
         $minimalPeriod = config()->integer('booking.minimal_period');
         $maxBookings = config()->integer('booking.max_bookings');
 
-        if ($this->bookingRepository->countActiveUserBookingsOfType($data['user_id'], $reservable->type) >= $maxBookings) {
+        if ($this->bookingRepository->countActiveUserBookingsOfType($user->id, $reservable->type) >= $maxBookings) {
             throw ValidationException::withMessages(['bookings_limit' => __('exceptions.booking.max_bookings', ['limit' => $maxBookings])]);
         }
 
@@ -48,7 +57,7 @@ final readonly class CreateBookingAction
         }
 
         if ($this->bookingRepository->hasAnyBookingsOfTypeInPeriod(
-            userId: $data['user_id'],
+            userId: $user->id,
             reservableType: $reservable->type,
             startAt: $startAt,
             endAt: $endAt,

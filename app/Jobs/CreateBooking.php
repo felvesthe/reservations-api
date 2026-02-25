@@ -20,7 +20,7 @@ final class CreateBooking implements ShouldQueue
 
     /**
      * @param  array{
-     *     user_id: string,
+     *     user: User,
      *     reservable_id: string,
      *     start_at: CarbonInterface,
      *     end_at: CarbonInterface,
@@ -44,10 +44,11 @@ final class CreateBooking implements ShouldQueue
             );
         }
 
-        $user = User::findOrFail($this->data['user_id']);
+        /** @var User $user */
+        $user = $this->data['user'];
 
         $booking = Booking::create([
-            'user_id' => $this->data['user_id'],
+            'user_id' => $user->id,
             'reservable_id' => $this->data['reservable_id'],
             'start_at' => $this->data['start_at'],
             'end_at' => $this->data['end_at'],

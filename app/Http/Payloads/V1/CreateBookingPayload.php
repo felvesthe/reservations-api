@@ -16,7 +16,6 @@ final readonly class CreateBookingPayload
 
     /**
      * @return array{
-     *     user_id: string,
      *     reservable_id: string,
      *     start_at: CarbonInterface,
      *     end_at: CarbonInterface
@@ -32,7 +31,6 @@ final readonly class CreateBookingPayload
         }
 
         return [
-            'user_id' => $this->request->string('user_id')->toString(),
             'reservable_id' => $this->request->string('reservable_id')->toString(),
             'start_at' => $startAt,
             'end_at' => $endAt,
