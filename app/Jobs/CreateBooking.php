@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
-use App\Mail\BookingCreated;
 use App\Models\Booking;
 use App\Models\User;
 use App\Repositories\BookingRepositoryInterface;
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 final class CreateBooking implements ShouldQueue
@@ -44,17 +42,11 @@ final class CreateBooking implements ShouldQueue
             );
         }
 
-        /** @var User $user */
-        $user = $this->data['user'];
-
-        $booking = Booking::create([
-            'user_id' => $user->id,
+        Booking::create([
+            'user_id' => $this->data['user']->id,
             'reservable_id' => $this->data['reservable_id'],
             'start_at' => $this->data['start_at'],
             'end_at' => $this->data['end_at'],
         ]);
-
-        Mail::to($user)
-            ->queue(new BookingCreated($booking));
     }
 }

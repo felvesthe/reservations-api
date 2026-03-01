@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
+use App\Mail\BookingCreated;
 use App\Models\Booking;
 use App\Services\TelegramServiceInterface;
+use Illuminate\Support\Facades\Mail;
 
 final readonly class BookingObserver
 {
@@ -20,6 +22,11 @@ final readonly class BookingObserver
 
         if ($notificationChannels['telegram']) {
             $this->telegramService->bookingCreated($booking);
+        }
+
+        if ($notificationChannels['email']) {
+            Mail::to($booking->user)
+                ->queue(new BookingCreated($booking));
         }
     }
 
