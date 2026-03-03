@@ -27,7 +27,6 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Model::preventLazyLoading();
         Model::shouldBeStrict();
     }
 }
