@@ -17,6 +17,8 @@ final readonly class BookingObserver
 
     public function created(Booking $booking): void
     {
+        $booking->loadMissing('user');
+
         /** @var array<string, bool> $notificationChannels */
         $notificationChannels = $booking->user?->notification_channels;
 
@@ -32,6 +34,8 @@ final readonly class BookingObserver
 
     public function deleted(Booking $booking): void
     {
+        $booking->loadMissing('user');
+
         /** @var array<string, bool> $notificationChannels */
         $notificationChannels = $booking->user?->notification_channels;
 
