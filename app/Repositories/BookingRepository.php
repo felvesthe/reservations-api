@@ -8,6 +8,7 @@ use App\Enums\ReservableType;
 use App\Models\Booking;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 final class BookingRepository implements BookingRepositoryInterface
 {
@@ -51,6 +52,17 @@ final class BookingRepository implements BookingRepositoryInterface
         );
 
         return $query->exists();
+    }
+
+    public function getBookingsStartingIn(int $minutes, array $includedRelations = []): Collection
+    {
+        $time = now()->addMinutes($minutes);
+
+        return Booking::query()
+            ->with($includedRelations)
+            ->whereDate('start_at', $time->toDateString())
+            ->whereTime('start_at', $time->toTimeString())
+            ->get();
     }
 
     /**

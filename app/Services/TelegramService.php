@@ -18,6 +18,17 @@ final readonly class TelegramService implements TelegramServiceInterface
     /**
      * @throws TelegramSDKException
      */
+    public function sendMessage(string $message): void
+    {
+        $this->telegram->sendMessage([
+            'chat_id' => config()->string('telegram.channel_id'),
+            'text' => $message,
+        ]);
+    }
+
+    /**
+     * @throws TelegramSDKException
+     */
     public function bookingCreated(Booking $booking): void
     {
         /** @var CarbonInterface $startAt */

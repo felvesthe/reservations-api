@@ -11,5 +11,9 @@ return [
             'start_at' => 'Rozpoczyna się: :date',
             'end_at' => 'Kończy się: :date',
         ],
+        'reminder' => [
+            'subject' => 'Rezerwacja o ID :id rozpoczyna się za :time minut(y)!',
+            'body' => 'Przypominamy, że Twoja rezerwacja zasobu :reservable_name rozpoczyna się o godzinie :start_at.',
+        ],
     ],
 ];

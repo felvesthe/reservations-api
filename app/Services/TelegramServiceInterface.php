@@ -8,6 +8,7 @@ use App\Models\Booking;
 
 interface TelegramServiceInterface
 {
+    public function sendMessage(string $message): void;
     public function bookingCreated(Booking $booking): void;
     public function bookingCancelled(Booking $booking): void;
 }
