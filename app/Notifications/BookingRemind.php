@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Mappers\NotificationChannelsMapper;
 use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -14,18 +15,22 @@ final class BookingRemind extends Notification implements TelegramNotificationIn
 {
     use Queueable;
 
+    private NotificationChannelsMapper $channelsMapper;
+
     public function __construct(
         private readonly Booking $booking,
-    ) {}
+    ) {
+        $this->channelsMapper = app(NotificationChannelsMapper::class);
+    }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
+    /** @return array<int, mixed> */
     public function via(object $notifiable): array
     {
-        return ['mail', TelegramChannel::class];
+        if (! $notifiable instanceof User) {
+            return [];
+        }
+
+        return $this->channelsMapper->getNotificationChannels($notifiable);
     }
 
     public function toMail(object $notifiable): MailMessage
