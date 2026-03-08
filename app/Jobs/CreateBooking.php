@@ -40,6 +40,7 @@ final class CreateBooking implements ShouldQueue
                     'period' => __('responses.v1.bookings.store.failure_invalid_period'),
                 ]),
             );
+            return;
         }
 
         Booking::create([
