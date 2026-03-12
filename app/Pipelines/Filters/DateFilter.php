@@ -34,7 +34,7 @@ final class DateFilter extends Filter
         $dates = collect(
             value: explode(',', $filter),
         )->map(
-            callback: fn($date) => Carbon::parse($date)->format('Y-m-d H:i'),
+            callback: fn(string $date) => Carbon::parse($date)->format('Y-m-d H:i'),
         );
 
         $query
