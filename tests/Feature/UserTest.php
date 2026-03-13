@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\Auth\RoleType;
 use App\Models\User;
 use Database\Seeders\PermissionSeeder;
 use Database\Seeders\RoleSeeder;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->seed([PermissionSeeder::class, RoleSeeder::class]);
     $this->employee = User::factory()->create();
 });
 
-test('user is assigned to employee role after creation', function () {
+test('user is assigned to employee role after creation', function (): void {
     $hasEmployeeRole = $this->employee->hasRole(RoleType::EMPLOYEE->value);
 
     expect($hasEmployeeRole)
         ->toBeTrue();
 });
 
-test('employee can access employees list', function () {
+test('employee can access employees list', function (): void {
     $this->actingAs($this->employee)
         ->getJson(route('v1:users:index'))
         ->assertOk()
@@ -29,11 +31,11 @@ test('employee can access employees list', function () {
                 'username',
                 'email',
                 'notification_channels',
-            ]
+            ],
         ]]);
 });
 
-test('employee can access other employee details', function () {
+test('employee can access other employee details', function (): void {
     $otherEmployee = User::factory()->create();
 
     $this->actingAs($this->employee)
@@ -47,12 +49,12 @@ test('employee can access other employee details', function () {
             'email',
             'notification_channels' => [
                 'email',
-                'telegram'
-            ]
+                'telegram',
+            ],
         ]);
 });
 
-test('employee cannot delete his profile', function () {
+test('employee cannot delete his profile', function (): void {
     $this->actingAs($this->employee)
         ->delete(route('v1:users:destroy', ['user' => $this->employee]))
         ->assertForbidden();
@@ -62,7 +64,7 @@ test('employee cannot delete his profile', function () {
     ]);
 });
 
-test('manager can delete employee\'s profile', function () {
+test('manager can delete employee\'s profile', function (): void {
     $manager = User::factory()->create()->syncRoles(RoleType::MANAGER->value);
 
     $this->actingAs($manager)
