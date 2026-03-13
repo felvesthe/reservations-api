@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Enums\ReservableType;
 use App\Models\Reservable;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<Reservable>
@@ -50,7 +51,7 @@ final class ReservableFactory extends Factory
         $reservable = $this->faker->randomElement($this->reservables);
 
         return [
-            'name' => $this->faker->word(),
+            'name' => Str::chopEnd($this->faker->realTextBetween(3, 10), '.'),
             'type' => $reservable['type'],
             'features' => json_encode($reservable['features']),
         ];
