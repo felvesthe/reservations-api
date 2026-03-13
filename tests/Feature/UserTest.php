@@ -56,7 +56,7 @@ test('employee can access other employee details', function (): void {
 
 test('employee cannot delete his profile', function (): void {
     $this->actingAs($this->employee)
-        ->delete(route('v1:users:destroy', ['user' => $this->employee]))
+        ->deleteJson(route('v1:users:destroy', ['user' => $this->employee]))
         ->assertForbidden();
 
     $this->assertDatabaseHas('users', [
@@ -68,7 +68,7 @@ test('manager can delete employee\'s profile', function (): void {
     $manager = User::factory()->create()->syncRoles(RoleType::MANAGER->value);
 
     $this->actingAs($manager)
-        ->delete(route('v1:users:destroy', ['user' => $this->employee]))
+        ->deleteJson(route('v1:users:destroy', ['user' => $this->employee]))
         ->assertNoContent();
 
     $this->assertSoftDeleted('users', [
