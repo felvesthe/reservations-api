@@ -10,16 +10,9 @@ use App\Models\Reservable;
 use App\Strategies\FeatureStrategyInterface;
 use InvalidArgumentException;
 
-/**
- * @phpstan-type DeskDataArray array{
- *     monitor_size: ?float,
- *     height_adjustment: ?bool
- * }
- */
 final readonly class DeskFeatureStrategy implements FeatureStrategyInterface
 {
-    /** @var DeskData|null $currentFeatures */
-    private ?FeatureData $currentFeatures;
+    private ?DeskData $currentFeatures;
 
     public function __construct(
         private ?Reservable $reservable,
@@ -30,34 +23,22 @@ final readonly class DeskFeatureStrategy implements FeatureStrategyInterface
         $this->currentFeatures = $currentFeatures;
     }
 
-    /** @param DeskDataArray $data */
+    /**
+     * @param array{
+     *     monitor_size: ?float,
+     *     monitorSize: ?float,
+     *     height_adjustment: ?bool,
+     *     heightAdjustment: ?bool
+     * } $data
+     */
     public function make(array $data): FeatureData
     {
-        return new DeskData(
-            monitorSize: $this->monitorSize($data),
-            heightAdjustment: $this->heightAdjustment($data),
-        );
-    }
+        $deskData = DeskData::fromArray($data, $this->currentFeatures);
 
-    /** @param DeskDataArray $data */
-    private function monitorSize(array $data): float
-    {
-        $monitorSize = $data['monitor_size'] ?? $this->currentFeatures?->monitorSize;
-
-        if (null === $monitorSize) {
-            throw new InvalidArgumentException(__('exceptions.desk.features.monitor_size_required'));
-        }
-
-        if ($monitorSize <= 0.0) {
+        if ($deskData->monitorSize <= 0.0) {
             throw new InvalidArgumentException(__('exceptions.desk.features.monitor_size_greater_than_zero'));
         }
 
-        return $monitorSize;
-    }
-
-    /** @param DeskDataArray $data */
-    private function heightAdjustment(array $data): bool
-    {
-        return $data['height_adjustment'] ?? $this->currentFeatures->heightAdjustment ?? false;
+        return $deskData;
     }
 }
