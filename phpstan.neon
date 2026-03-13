@@ -8,7 +8,6 @@ parameters:
         - bootstrap/
         - database/
         - routes/
-        - tests/
 
     level: 9
 
